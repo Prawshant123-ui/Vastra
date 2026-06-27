@@ -1,3 +1,4 @@
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -7,37 +8,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  phone     String
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  isEmailVerified           Boolean   @default(false)
+  emailVerificationToken    String?
+  emailVerificationExpires  DateTime?
+
+  passwordResetToken        String?
+  passwordResetExpires      DateTime?
+}
+
 enum Role {
   USER
   ADMIN
 }
 
-model User {
-  id String @id @default(cuid())
-
-  name String
-
-  email String @unique
-
-  phone String
-
-  password String
-
-  role Role @default(USER)
-
-  isVerified Boolean @default(false)
-
-  emailVerificationToken String?
-
-  emailVerificationExpires DateTime?
-
-  passwordResetToken String?
-
-  passwordResetExpires DateTime?
-
-  refreshToken String?
-
-  createdAt DateTime @default(now())
-
-  updatedAt DateTime @updatedAt
-}
