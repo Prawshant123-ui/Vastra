@@ -4,55 +4,40 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  password  String
+  id String @id @default(cuid())
 
-  orders    Order[]
-}
+  name String
 
-model Category {
-  id        Int       @id @default(autoincrement())
-  name      String
+  email String @unique
 
-  products  Product[]
-}
+  phone String
 
-model Product {
-  id          Int      @id @default(autoincrement())
-  name        String
-  description String?
-  price       Float
-  stock       Int
+  password String
 
-  categoryId  Int
-  category    Category @relation(fields: [categoryId], references: [id])
+  role Role @default(USER)
 
-  orderItems  OrderItem[]
-}
+  isVerified Boolean @default(false)
 
-model Order {
-  id          Int      @id @default(autoincrement())
-  totalAmount Float
+  emailVerificationToken String?
 
-  userId      Int
-  user        User @relation(fields: [userId], references: [id])
+  emailVerificationExpires DateTime?
 
-  items       OrderItem[]
-}
+  passwordResetToken String?
 
-model OrderItem {
-  id          Int @id @default(autoincrement())
+  passwordResetExpires DateTime?
 
-  quantity    Int
+  refreshToken String?
 
-  orderId     Int
-  productId   Int
+  createdAt DateTime @default(now())
 
-  order       Order   @relation(fields: [orderId], references: [id])
-  product     Product @relation(fields: [productId], references: [id])
+  updatedAt DateTime @updatedAt
 }
