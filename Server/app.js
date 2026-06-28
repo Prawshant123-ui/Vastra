@@ -5,6 +5,8 @@ const morgan  = require("morgan");
 
 const authRoutes = require("./src/routes/authRoutes");
 const categoryRoutes = require("./src/routes/categoryRoutes");
+const productRoutes  = require("./src/routes/productRoutes");
+const cartRoutes     = require("./src/routes/cartRoutes");
 
 const app = express();
 
@@ -20,6 +22,8 @@ app.use(morgan("dev"));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
+app.use("/api/products",   productRoutes);
+app.use("/api/cart",       cartRoutes);
 
 app.get("/api/health", (req, res) => {
   res.status(200).json({ success: true, message: "Server is running" });
