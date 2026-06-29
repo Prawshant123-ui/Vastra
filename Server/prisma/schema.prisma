@@ -45,6 +45,7 @@ model User {
 
   emailVerificationToken   String?
   emailVerificationExpires DateTime?
+  emailVerifiedAt        DateTime?
   passwordResetToken       String?
   passwordResetExpires     DateTime?
 

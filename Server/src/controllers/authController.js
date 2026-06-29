@@ -126,7 +126,6 @@ const loginUser = async (req, res) => {
 const verifyEmail = async (req, res) => {
   try {
     const { token } = req.query;
-
     if (!token) {
       return res.status(400).json({
         success: false,
@@ -142,6 +141,21 @@ const verifyEmail = async (req, res) => {
     });
 
     if (!user) {
+      
+      const recentlyVerified = await prisma.user.findFirst({
+        where: {
+          isEmailVerified: true,
+          emailVerifiedAt: { gt: new Date(Date.now() - 10 * 60 * 1000) },
+        },
+      });
+
+      if (recentlyVerified) {
+        return res.status(200).json({
+          success: true,
+          message: "Email verified successfully. You can now log in.",
+        });
+      }
+
       return res.status(400).json({
         success: false,
         message: "Invalid or expired verification token",
@@ -152,6 +166,7 @@ const verifyEmail = async (req, res) => {
       where: { id: user.id },
       data: {
         isEmailVerified: true,
+        emailVerifiedAt: new Date(),       
         emailVerificationToken: null,
         emailVerificationExpires: null,
       },
@@ -161,6 +176,7 @@ const verifyEmail = async (req, res) => {
       success: true,
       message: "Email verified successfully. You can now log in.",
     });
+
   } catch (error) {
     console.error(error);
     return res.status(500).json({ success: false, message: "Internal server error" });
