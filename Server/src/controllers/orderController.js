@@ -1,9 +1,5 @@
 const prisma = require("../config/prisma");
 const generateOrderNumber = require("../utils/generateOrderNumber");
-const generateOrderNumber=require("../utils/generateOrderNumber")
-
-
-const generateOrderNumber= generateOrderNumber();
 
 const placeOrder = async (req, res) => {
   try {

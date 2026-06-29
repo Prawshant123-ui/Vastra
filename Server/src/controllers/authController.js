@@ -296,11 +296,46 @@ const resendVerificationEmail = async (req, res) => {
   });
 };
 
+
+// for admin
+const changePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({ success: false, message: "Both fields are required" });
+    }
+
+    if (newPassword.length < 8) {
+      return res.status(400).json({ success: false, message: "Password must be at least 8 characters" });
+    }
+
+    const user = await prisma.user.findUnique({ where: { id: req.user.id } });
+
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ success: false, message: "Current password is incorrect" });
+    }
+
+    const hashed = await bcrypt.hash(newPassword, 12);
+    await prisma.user.update({
+      where: { id: req.user.id },
+      data: { password: hashed },
+    });
+
+    return res.status(200).json({ success: true, message: "Password updated successfully" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
   verifyEmail,
   forgotPassword,
   resetPassword,
-  resendVerificationEmail
+  resendVerificationEmail,
+  changePassword, 
 };

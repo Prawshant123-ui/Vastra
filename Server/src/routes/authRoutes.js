@@ -8,6 +8,7 @@ const {
   forgotPassword,
   resetPassword,
   resendVerificationEmail,
+  changePassword
 } = require("../controllers/authController");
 
 const {
@@ -18,6 +19,7 @@ const {
 
 const validateRequest = require("../validators/validateRequest");
 const { loginLimiter } = require("../services/rateLimiter");
+const {protect}=require("../middleware/authMiddleware")
 
 router.post("/register", registerValidator, validateRequest, registerUser);
 router.post("/login", loginLimiter, loginValidator, validateRequest, loginUser);
@@ -30,5 +32,6 @@ router.post(
   validateRequest,
   resetPassword,
 );
+router.patch("/change-password", protect, changePassword);
 
 module.exports = router;
