@@ -67,7 +67,7 @@ export default function Cart() {
                     <button onClick={() => removeItem(it.id)} className="btn-ghost !p-2 ml-auto text-primary"><FiTrash2 /></button>
                   </div>
                 </div>
-                <p className="font-display text-lg text-dark">${(price * it.quantity).toFixed(2)}</p>
+                <p className="font-display text-lg text-dark">Rs{(price * it.quantity).toFixed(2)}</p>
               </motion.div>
             );
           })}
@@ -81,7 +81,7 @@ export default function Cart() {
           <div className="h-px bg-border my-3" />
           <Row label="Total" value={`$${total.toFixed(2)}`} bold />
           <button onClick={() => nav("/checkout")} className="btn-primary w-full mt-5">Proceed to checkout</button>
-          <p className="text-xs text-muted mt-3 text-center">Free shipping on orders over $50.</p>
+          <p className="text-xs text-muted mt-3 text-center">Free shipping on orders over Rs 50.</p>
         </aside>
       </div>
     </div>

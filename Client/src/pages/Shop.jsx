@@ -1,3 +1,4 @@
+
 import { useEffect, useState, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -60,7 +61,7 @@ export default function Shop() {
   const Filters = (
     <div className="space-y-6">
       <div>
-        <label className="text-sm font-semibold text-dark mb-2 block">Search</label>
+        <label className="text-sm font-semibold text-dark mb-2 block">Search garments</label>
         <div className="relative">
           <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
@@ -97,8 +98,8 @@ export default function Shop() {
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-8 py-10">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-        <h1 className="text-4xl md:text-5xl">The Shop</h1>
-        <p className="text-body mt-2">{meta.total} pieces, ready for their next home.</p>
+        <h1 className="text-4xl md:text-5xl">The Collections</h1>
+        <p className="text-body mt-2"> Timeless garments, crafted with Nepalese heritage.</p>
       </motion.div>
 
       <div className="flex items-center justify-between gap-3 mb-6">
@@ -112,7 +113,7 @@ export default function Shop() {
         </select>
       </div>
 
-      <div className="grid lg:grid-cols-[260px_1fr] gap-8">
+      <div className="grid lg:grid-cols-[340px_1fr] gap-8">
         <aside className="hidden lg:block card-base p-5 h-fit sticky top-24">{Filters}</aside>
 
         <div>

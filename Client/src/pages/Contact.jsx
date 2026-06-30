@@ -19,13 +19,13 @@ export default function Contact() {
   return (
     <div className="max-w-6xl mx-auto px-4 md:px-8 py-16 grid md:grid-cols-2 gap-12">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <span className="chip">Say hello</span>
+        
         <h1 className="text-4xl md:text-5xl mt-3">Get in touch</h1>
         <p className="mt-3 text-body">We answer everything personally, usually within 24 hours.</p>
         <div className="mt-8 space-y-4 text-sm text-body">
-          <Row icon={<FiMail />}>hello@hearthandharvest.shop</Row>
-          <Row icon={<FiPhone />}>+1 (802) 555-0199</Row>
-          <Row icon={<FiMapPin />}>14 Elm Lane, Stowe VT, USA</Row>
+          <Row icon={<FiMail />}>vastraheritage@shop.com</Row>
+          <Row icon={<FiPhone />}>+977-9864436694</Row>
+          <Row icon={<FiMapPin />}>Kailashnagar, Bharatpur-05, Chitwan, Nepal</Row>
         </div>
       </motion.div>
       <motion.form initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} onSubmit={submit} className="card-base p-6 md:p-8 space-y-4">

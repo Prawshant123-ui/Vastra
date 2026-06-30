@@ -21,12 +21,12 @@ export default function Dashboard() {
 
   const totals = data.totals;
   const stats = [
-    { icon: <FiDollarSign />, label: "Revenue", value: `$${Number(totals.revenue).toFixed(2)}`, color: "bg-primary" },
+    { icon: <FiDollarSign />, label: "Revenue", value: `NPR ${Number(totals.revenue).toFixed(2)}`, color: "bg-primary" },
     { icon: <FiShoppingBag />, label: "Orders", value: totals.orders, color: "bg-accent" },
     { icon: <FiPackage />, label: "Products", value: totals.products, color: "bg-dark" },
     { icon: <FiUsers />, label: "Customers", value: totals.users, color: "bg-body" },
   ];
-
+ 
   const months = data.revenueByMonth || [];
   const lineData = {
     labels: months.map((m) => m.month),

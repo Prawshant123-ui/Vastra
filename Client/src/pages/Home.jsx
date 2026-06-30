@@ -14,119 +14,7 @@ import ProductCard from "../components/ProductCard.jsx";
 import { ProductCardSkeleton } from "../components/Skeleton.jsx";
 import heroImg from "../assets/hero.png";
 
-const SLIDES = [
-  {
-    url: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=900&q=80",
-    label: "Warm home essentials",
-  },
-  {
-    url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80",
-    label: "Handcrafted with care",
-  },
-  {
-    url: "https://images.unsplash.com/photo-1484101403633-562f891dc89a?w=900&q=80",
-    label: "Slow-made, built to last",
-  },
-  {
-    url: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=80",
-    label: "Seasonal collections",
-  },
-];
 
-function Carousel() {
-  const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(1);
-
-  const go = useCallback(
-    (next) => {
-      setDirection(next > current ? 1 : -1);
-      setCurrent(next);
-    },
-    [current],
-  );
-
-  const prev = () => go((current - 1 + SLIDES.length) % SLIDES.length);
-  const next = () => go((current + 1) % SLIDES.length);
-
-  // Auto-advance every 4s
-  useEffect(() => {
-    const t = setInterval(() => {
-      setDirection(1);
-      setCurrent((c) => (c + 1) % SLIDES.length);
-    }, 4000);
-    return () => clearInterval(t);
-  }, []);
-
-  const variants = {
-    enter: (d) => ({ x: d > 0 ? "100%" : "-100%", opacity: 0 }),
-    center: {
-      x: 0,
-      opacity: 1,
-      transition: { duration: 0.45, ease: "easeInOut" },
-    },
-    exit: (d) => ({
-      x: d > 0 ? "-100%" : "100%",
-      opacity: 0,
-      transition: { duration: 0.45, ease: "easeInOut" },
-    }),
-  };
-
-  return (
-    <div className="relative w-full aspect-[3/2] rounded-2xl overflow-hidden shadow-lift bg-section">
-      {/* Slides */}
-      <AnimatePresence custom={direction} initial={false}>
-        <motion.img
-          key={current}
-          src={SLIDES[current].url}
-          alt={SLIDES[current].label}
-          custom={direction}
-          variants={variants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-      </AnimatePresence>
-
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-
-      {/* Label */}
-      <div className="absolute bottom-14 left-4 right-4">
-        <p className="text-white text-sm font-medium drop-shadow">
-          {SLIDES[current].label}
-        </p>
-      </div>
-
-      {/* Dot indicators */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
-        {SLIDES.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => go(i)}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              i === current ? "w-6 bg-white" : "w-1.5 bg-white/50"
-            }`}
-          />
-        ))}
-      </div>
-
-      {/* Prev / Next arrows */}
-      <button
-        onClick={prev}
-        className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/80 hover:bg-white grid place-items-center shadow transition-colors"
-      >
-        <FiChevronLeft className="text-dark" />
-      </button>
-      <button
-        onClick={next}
-        className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/80 hover:bg-white grid place-items-center shadow transition-colors"
-      >
-        <FiChevronRight className="text-dark" />
-      </button>
-    </div>
-  );
-}
 
 export default function Home() {
   const [featured, setFeatured] = useState([]);
@@ -148,7 +36,7 @@ export default function Home() {
         setFeatured(feat.length ? feat : products.slice(0, 4));
         setCats((c.data.data || c.data || []).slice(0, 6));
       } catch {
-        // fail silently
+        
       } finally {
         setLoading(false);
       }
@@ -192,9 +80,9 @@ export default function Home() {
             </div>
 
             <h1 className="text-4xl md:text-5xl leading-tight font-display text-dark">
-              <span className="text-primary">Woven</span> by Hands.
+              <span className="text-primary">Every thread</span> tells a story.
               <br />
-              Made for <span className="text-primary">Generations.</span>
+              Heritage in <span className="text-primary">Every Stitch.</span>
             </h1>
 
             <p className="mt-4 text-base text-body">
@@ -204,7 +92,7 @@ export default function Home() {
 
             <div className="mt-6 flex flex-wrap gap-3">
               <Link to="/shop" className="btn-primary">
-                Shop the Collection <FiArrowRight />
+                See our traditions <FiArrowRight />
               </Link>
               <Link to="/about" className="btn-outline">
                 Our Story
