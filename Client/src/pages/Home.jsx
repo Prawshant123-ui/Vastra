@@ -12,7 +12,7 @@ import {
 import { productApi, categoryApi } from "../api/endpoints.js";
 import ProductCard from "../components/ProductCard.jsx";
 import { ProductCardSkeleton } from "../components/Skeleton.jsx";
-import heroImg from "../assets/hero.png";
+import heroImg from "../assets/Hero.png";
 
 
 
